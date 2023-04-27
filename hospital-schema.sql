@@ -41,6 +41,38 @@ CREATE TABLE patient (
   FOREIGN KEY (nurse_id) REFERENCES nurse(nurse_id)
 );
 
+CREATE TABLE instruction (
+  code           	 INT            PRIMARY KEY,
+  fee       	     INT   			NOT NULL,
+  description		 TEXT,
+  order_date		 DATETIME		NOT NULL,
+  status			 VARCHAR(30)	NOT NULL,
+  patient_id         INT			NOT NULL,
+  physician_id       INT			NOT NULL,
+  nurse_id           INT			NOT NULL,
+  FOREIGN KEY (patient_id) REFERENCES patient(patient_id),
+  FOREIGN KEY (physician_id) REFERENCES physician(physician_id),
+  FOREIGN KEY (nurse_id) REFERENCES nurse(nurse_id)
+);
+
+CREATE TABLE order_instruction (
+	code			INT				PRIMARY KEY,
+    physician_id    INT			NOT NULL,
+    nurse_id		INT 		NOT NULL,
+    status			VARCHAR(30)		 NOT NULL,
+	FOREIGN KEY (physician_id) REFERENCES physician(physician_id),
+	FOREIGN KEY (nurse_id) REFERENCES nurse(nurse_id),
+    FOREIGN KEY (code) REFERENCES instruction(code)
+);
+
+CREATE TABLE monitor (
+	duration	    INT			   NOT NULL,
+    physician_id		 INT			NOT NULL,
+    patient_id		 INT			NOT NULL,
+    FOREIGN KEY (physician_id) REFERENCES physician(physician_id),
+    FOREIGN KEY (patient_id) REFERENCES patient(patient_id)
+);
+
 CREATE TABLE payment (
   date         		 DATETIME       NOT NULL PRIMARY KEY,
   amount             INT    		NOT NULL,
@@ -59,7 +91,7 @@ CREATE TABLE health_record (
 
 CREATE TABLE medication (
   name           	 VARCHAR(50)    PRIMARY KEY,
-  doses				 INT,
+  amount				 INT,
   patient_id         INT,
   nurse_id       	 INT,
   FOREIGN KEY (patient_id) REFERENCES patient(patient_id),
@@ -71,18 +103,4 @@ CREATE TABLE invoice (
   room_cost          INT,
   patient_id       	 INT	PRIMARY KEY,
   FOREIGN KEY (patient_id) REFERENCES patient(patient_id)
-);
-
-CREATE TABLE instruction (
-  code           	 INT            PRIMARY KEY,
-  fee       	     INT   			NOT NULL,
-  description		 TEXT,
-  order_date		 DATETIME		NOT NULL,
-  status			 VARCHAR(30)	NOT NULL,
-  patient_id         INT			NOT NULL,
-  physician_id       INT			NOT NULL,
-  nurse_id           INT			NOT NULL,
-  FOREIGN KEY (patient_id) REFERENCES patient(patient_id),
-  FOREIGN KEY (physician_id) REFERENCES physician(physician_id),
-  FOREIGN KEY (nurse_id) REFERENCES nurse(nurse_id)
 );
