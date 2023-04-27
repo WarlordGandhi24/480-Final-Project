@@ -49,10 +49,8 @@ CREATE TABLE instruction (
   status			 VARCHAR(30)	NOT NULL,
   patient_id         INT			NOT NULL,
   physician_id       INT			NOT NULL,
-  nurse_id           INT			NOT NULL,
   FOREIGN KEY (patient_id) REFERENCES patient(patient_id),
-  FOREIGN KEY (physician_id) REFERENCES physician(physician_id),
-  FOREIGN KEY (nurse_id) REFERENCES nurse(nurse_id)
+  FOREIGN KEY (physician_id) REFERENCES physician(physician_id)
 );
 
 CREATE TABLE order_instruction (
@@ -96,6 +94,13 @@ CREATE TABLE medication (
   nurse_id       	 INT,
   FOREIGN KEY (patient_id) REFERENCES patient(patient_id),
   FOREIGN KEY (nurse_id) REFERENCES nurse(nurse_id)
+);
+
+CREATE TABLE medication_provision (
+	nurse_id       	 INT	PRIMARY KEY,
+    name           	 VARCHAR(50),
+	FOREIGN KEY (nurse_id) REFERENCES nurse(nurse_id),
+	FOREIGN KEY (name) REFERENCES medication(name)
 );
 
 CREATE TABLE invoice (
