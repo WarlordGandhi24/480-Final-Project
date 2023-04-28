@@ -34,33 +34,18 @@ CREATE TABLE patient (
   phone_num          VARCHAR(15)    NOT NULL,
   room_num			 INT			NOT NULL,
   length_of_stay	 INT			NOT NULL,
-  physician_id		 INT			NOT NULL,
-  nurse_id			 INT			NOT NULL,
-  FOREIGN KEY (room_num) REFERENCES room(room_num),
-  FOREIGN KEY (physician_id) REFERENCES physician(physician_id),
-  FOREIGN KEY (nurse_id) REFERENCES nurse(nurse_id)
+  FOREIGN KEY (room_num) REFERENCES room(room_num)
 );
 
 CREATE TABLE instruction (
-  code           	 INT            PRIMARY KEY,
+  code           	 VARCHAR(15)            PRIMARY KEY,
   fee       	     INT   			NOT NULL,
   description		 TEXT,
   order_date		 DATETIME		NOT NULL,
-  status			 VARCHAR(30)	NOT NULL,
   patient_id         INT			NOT NULL,
   physician_id       INT			NOT NULL,
   FOREIGN KEY (patient_id) REFERENCES patient(patient_id),
   FOREIGN KEY (physician_id) REFERENCES physician(physician_id)
-);
-
-CREATE TABLE order_instruction (
-	code			INT				PRIMARY KEY,
-    physician_id    INT			NOT NULL,
-    nurse_id		INT 		NOT NULL,
-    status			VARCHAR(30)		 NOT NULL,
-	FOREIGN KEY (physician_id) REFERENCES physician(physician_id),
-	FOREIGN KEY (nurse_id) REFERENCES nurse(nurse_id),
-    FOREIGN KEY (code) REFERENCES instruction(code)
 );
 
 CREATE TABLE monitor (
@@ -96,6 +81,14 @@ CREATE TABLE medication (
   FOREIGN KEY (nurse_id) REFERENCES nurse(nurse_id)
 );
 
+CREATE TABLE nurse_execution (
+	status		INT,
+    nurse_id    INT,
+    code		VARCHAR(15),
+	FOREIGN KEY (nurse_id) REFERENCES nurse(nurse_id),
+	FOREIGN KEY (code) REFERENCES medication(name)
+);
+
 CREATE TABLE medication_provision (
 	nurse_id       	 INT	PRIMARY KEY,
     name           	 VARCHAR(50),
@@ -106,6 +99,6 @@ CREATE TABLE medication_provision (
 CREATE TABLE invoice (
   instruction_cost   INT,
   room_cost          INT,
-  patient_id       	 INT	PRIMARY KEY,
+  patient_id       	 INT,
   FOREIGN KEY (patient_id) REFERENCES patient(patient_id)
 );
