@@ -57,9 +57,10 @@ CREATE TABLE monitor (
 );
 
 CREATE TABLE payment (
-  date         		 DATETIME       NOT NULL PRIMARY KEY,
+  date         		 DATETIME       NOT NULL,
   amount             INT    		NOT NULL,
   patient_id		 INT			NOT NULL,
+  PRIMARY KEY (date,patient_id),
   FOREIGN KEY (patient_id) REFERENCES patient(patient_id)
 );
 
