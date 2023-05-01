@@ -77,7 +77,7 @@ CREATE TABLE health_record (
 
 CREATE TABLE medication (
   name           	 VARCHAR(50)    PRIMARY KEY,
-  amount		     VARCHAR(15),
+  amount		     INT,
   patient_id         INT,
   FOREIGN KEY (patient_id) REFERENCES patient(patient_id)
 );

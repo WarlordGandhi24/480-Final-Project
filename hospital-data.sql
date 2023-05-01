@@ -37,11 +37,11 @@ insert into nurse values (1016, 'Joy Aflora', 976, '8292 Pallet Road', '999-99-9
 insert into nurse values (1017, 'Claire Heel', 754, '4129 Hallow Street', '653-63-2453');
 insert into nurse values (1018, 'Alan Benson', 728, '5829 Cap Avenue', '131-43-5321');
 
-insert into medication values ('insulin', '500mg', 101);
-insert into medication values ('ibuprofen', '200mg', 102);
-insert into medication values ('aspirin', '100mg', 103);
-insert into medication values ('SSRIs','150mg', 104);
-insert into medication values ('Tylenol', '250mg', 105);
+insert into medication values ('insulin', 500, 101);
+insert into medication values ('ibuprofen', 200, 102);
+insert into medication values ('aspirin', 100, 103);
+insert into medication values ('SSRIs', 150, 104);
+insert into medication values ('Tylenol', 250, 105);
 
 insert into instruction values ('MI001', 150, "Monitor blood glucose levels regularly",'2020-03-10', 101, 782);
 insert into instruction values('MI002', 250, "Provide patient with medication", '2023-02-27', 102, 783);
