@@ -46,12 +46,12 @@ AFTER INSERT
 ON instruction FOR EACH ROW
 INSERT INTO nurse_execution VALUES ('pending', 1015, NEW.code);
 DELIMITER @@;
-CREATE TRIGGER deleteNurseTrigger
+CREATE TRIGGER deleteNursesTrigger
 AFTER DELETE
 ON nurse FOR EACH ROW
 BEGIN
-	DELETE FROM nurse_execution WHERE nurse_id = OLD.nurse_id;
-    DELETE FROM medication_provision WHERE nurse_id = OLD.nurse_id;
+	UPDATE nurse_execution SET nurse_id = '0000' WHERE nurse_id = OLD.nurse_id;
+    UPDATE medication_provision SET nurse_id = '0000' WHERE nurse_id = OLD.nurse_id;
 END;
 @@;
 DELIMITER ;
