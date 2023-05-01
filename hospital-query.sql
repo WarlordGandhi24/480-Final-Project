@@ -38,11 +38,11 @@ WHERE cert_number = 332 OR cert_number = 424
 );
 
 SELECT *
-FROM medication_provision
+FROM nurse
 WHERE nurse_id = (
 SELECT nurse_id
-FROM nurse
-WHERE nurse_id = 1015
+FROM medication_provision
+WHERE name = "Insulin"
 );
 
 create view PatientView as
