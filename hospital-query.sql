@@ -21,6 +21,30 @@ WHERE patient.patient_id = payment.patient_id AND patient.length_of_stay > 7;
 SELECT AVG(instruction_cost) as 'Average Instruction Cost', AVG(room_cost) as 'Average Room Cost'
 FROM invoice;
 
+SELECT name, room_num
+FROM patient
+WHERE room_num IN (
+SELECT room_num
+FROM room
+WHERE capacity > 7
+);
+
+SELECT *
+FROM nurse_execution
+WHERE nurse_id NOT IN (
+SELECT nurse_id
+FROM nurse
+WHERE cert_number = 332 OR cert_number = 424
+);
+
+SELECT *
+FROM medication_provision
+WHERE nurse_id = (
+SELECT nurse_id
+FROM nurse
+WHERE nurse_id = 1015
+);
+
 create view PatientView as
 select patient.patient_id, patient.name, patient.address, health_record.disease, health_record.status, health_record.description, invoice.instruction_cost, invoice.room_cost
 from patient, health_record, invoice
