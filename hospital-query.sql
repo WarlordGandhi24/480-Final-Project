@@ -45,6 +45,33 @@ FROM medication_provision
 WHERE name = "Insulin"
 );
 
+select count(*) as num_of_insturctions 
+from instruction
+where physician_id = 
+(select physician_id 
+from physician 
+where name = 'Jessica Worthy');
+
+select name
+from patient join payment on patient.patient_id = payment.patient_id
+where payment.date between '2020-01-01' and '2020-12-31';
+
+select room_num, fee
+from room 
+order by fee;
+
+select name from patient 
+where patient_id not in (select patient_id from monitor);
+
+select name from physician
+where physician_id in (select physician_id 
+from instruction 
+join nurse_execution on instruction.code = nurse_execution.code
+where status = 'failure');
+
+select name from physician
+where name like 'J%'
+
 create view PatientView as
 select patient.patient_id, patient.name, patient.address, health_record.disease, health_record.status, health_record.description, invoice.instruction_cost, invoice.room_cost
 from patient, health_record, invoice
