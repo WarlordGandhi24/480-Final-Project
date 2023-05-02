@@ -45,6 +45,35 @@ FROM medication_provision
 WHERE name = "Insulin"
 );
 
+select patient.name, patient.length_of_stay, payment.amount
+from patient join payment on patient.patient_id = payment.patient_id
+where patient.length_of_stay > 4 and payment.amount > 2300;
+
+select patient.patient_id, avg(amount)
+from patient 
+join medication 
+on patient.patient_id = medication.patient_id
+group by patient.patient_id
+
+select patient_id, count(distinct physician_id) as cnt_physician
+from monitor
+group by patient_id
+
+select patient_id, (instruction_cost + room_cost) / length_of_stay as avg_cost_per_day
+from invoice
+join patient 
+on invoice.patient_id = patient.patient_id
+
+with tmp as (
+select patient_id, avg(room_cost) as avg_room_cost
+from invoice
+group by patient_id
+)
+select patient_id
+from tmp 
+order by avg_room_cost desc 
+limit 1
+
 select count(*) as num_of_insturctions 
 from instruction
 where physician_id = 
