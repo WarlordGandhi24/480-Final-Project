@@ -99,7 +99,7 @@ join nurse_execution on instruction.code = nurse_execution.code
 where status = 'failure');
 
 select name from physician
-where name like 'J%'
+where name like 'J%';
 
 create view PatientView as
 select patient.patient_id, patient.name, patient.address, health_record.disease, health_record.status, health_record.description, invoice.instruction_cost, invoice.room_cost
