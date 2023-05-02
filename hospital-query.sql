@@ -53,26 +53,26 @@ select patient.patient_id, avg(amount)
 from patient 
 join medication 
 on patient.patient_id = medication.patient_id
-group by patient.patient_id
+group by patient.patient_id;
 
 select patient_id, count(distinct physician_id) as cnt_physician
 from monitor
-group by patient_id
+group by patient_id;
 
 select patient_id, (instruction_cost + room_cost) / length_of_stay as avg_cost_per_day
 from invoice
 join patient 
-on invoice.patient_id = patient.patient_id
+on invoice.patient_id = patient.patient_id;
 
 with tmp as (
 select patient_id, avg(room_cost) as avg_room_cost
 from invoice
-group by patient_id
+group by patient_id;
 )
 select patient_id
 from tmp 
 order by avg_room_cost desc 
-limit 1
+limit 1;
 
 select count(*) as num_of_insturctions 
 from instruction
