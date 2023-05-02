@@ -110,7 +110,7 @@ DELIMITER ;
 START TRANSACTION;
 	UPDATE invoice SET instruction_cost = instruction_cost + 150 WHERE patient_id = 101;
 	UPDATE payment SET amount = amount + 150 WHERE patient_id = 101;
-    UPDATE instruction SET amount = amount + 150 WHERE patient_id = 101;
+    UPDATE instruction SET fee = fee + 150 WHERE patient_id = 101;
 COMMIT;
 
 START TRANSACTION;
